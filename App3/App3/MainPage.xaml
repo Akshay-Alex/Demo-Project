@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms" xmlns:local="clr-namespace:App3"
+             x:Class="App3.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="invertBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout BackgroundColor="FloralWhite" >
+            <Frame BackgroundColor="#208474" Padding="24" CornerRadius="0" >
+                <Label Text="FormInputs" HorizontalTextAlignment="Start" FontSize="36" TextColor="White"/>
+            </Frame>
+            <StackLayout Padding="10,0,10,0">
+                <StackLayout Orientation="Horizontal" >
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Gender " TextColor="Black"/>
+                                <Span Text="*" TextColor="Red" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding GenderValid}"></Image>
+                </StackLayout>
+                <combobox:SfComboBox HeightRequest="40" x:Name="comboBox" ShowBorder="False" BackgroundColor="White" SelectionChanged="comboBox_SelectionChanged" />
+                <StackLayout Orientation="Horizontal">
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Full Name " TextColor="Black"/>
+                                <Span Text="*" TextColor="Red" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
+                </StackLayout>
+
+                <autocomplete:SfAutoComplete x:Name="nameInput" ShowBorder="False" BackgroundColor="White">
+                    <autocomplete:SfAutoComplete.Behaviors>
+                        <xct:TextValidationBehavior MinimumLength="1" RegexPattern="([a-zA-Z]+)\s([a-zA-Z]+)" Flags="ValidateOnFocusing,ValidateOnValueChanging"  IsValid="{Binding NameValid}"></xct:TextValidationBehavior>
+                    </autocomplete:SfAutoComplete.Behaviors>
+                </autocomplete:SfAutoComplete>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Price " TextColor="Black"/>
+                                <Span Text="*" TextColor="Red" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"  BackgroundColor="White">
+                    <combobox:SfComboBox x:Name="currency" SelectionChanged="currency_SelectionChanged" MultiSelectMode="None" ShowClearButton="False" SelectedIndex="2" HeightRequest="40" WidthRequest="100" ShowBorder="False" BackgroundColor="White" />
+                    <autocomplete:SfAutoComplete x:Name="price" WidthRequest="280"   ShowBorder="False" BackgroundColor="White" TextColor="Black">
+
+                    </autocomplete:SfAutoComplete>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Phone Number " TextColor="Black"/>
+                                <Span Text="*" TextColor="Red" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
+                </StackLayout>
+                <autocomplete:SfAutoComplete x:Name="phone"    ShowBorder="False" BackgroundColor="White" TextColor="Black">
+
+                </autocomplete:SfAutoComplete>
+                <StackLayout Orientation="Horizontal">
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="ID Number " TextColor="Black"/>
+                                <Span Text="*" TextColor="Red" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
+                </StackLayout>
+                <autocomplete:SfAutoComplete x:Name="id"    ShowBorder="False" BackgroundColor="White" TextColor="Black">
+
+                </autocomplete:SfAutoComplete>
+                <StackLayout Orientation="Horizontal">
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="About you " TextColor="Black"/>
+                                <Span Text="*" TextColor="Red" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
+                </StackLayout>
+                <Editor  HeightRequest="300" BackgroundColor="White"></Editor>
+                <StackLayout Orientation="Horizontal">
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Email " TextColor="Black"/>
+                                <Span Text="*" TextColor="Red" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
+                </StackLayout>
+                <autocomplete:SfAutoComplete x:Name="email"    ShowBorder="False" BackgroundColor="White" TextColor="Black">
+                </autocomplete:SfAutoComplete>
+                <StackLayout Orientation="Horizontal">
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Password " TextColor="Black"/>
+                                <Span Text="*" TextColor="Red" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
+                </StackLayout>
+
+
+                <StackLayout VerticalOptions="Center"
+                    >
+                    <Grid>
+                        <Entry Placeholder="Password" BackgroundColor="White" TextColor="Black" ClearButtonVisibility="Never"
+                        IsPassword="{Binding Source={x:Reference ShowPasswordActualTrigger}, Path=HidePassword}"/>
+
+                        <ImageButton VerticalOptions="Center"
+                             Margin="0,0,20,0"
+                             HeightRequest="20"
+                                      BackgroundColor="White"
+                             HorizontalOptions="End"
+                                Source="ic_eye_hide">
+                            <ImageButton.Triggers>
+                                <EventTrigger Event="Clicked">
+                                    <local:DetailViewModel ShowIcon="ic_eye"
+                                                                    HideIcon="ic_eye_hide"
+                                                                    x:Name="ShowPasswordActualTrigger"/>
+                                </EventTrigger>
+                            </ImageButton.Triggers>
+                        </ImageButton>
+                    </Grid>
+                </StackLayout>
+                <Button Text="submit" BackgroundColor="red" HeightRequest="100"></Button>
+                <Entry HeightRequest = "200"></Entry>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+
+    <!--
+        <Label Text="Enter Name"/>
+        <Entry x:Name="namebox" Placeholder="Name">
+            <Entry.Behaviors>
+                <xct:EmailValidationBehavior Flags="ValidateOnUnfocusing" IsValid="{Binding EmailValid}"/>
+            </Entry.Behaviors>
+        </Entry>
+        <Label Text="not valid" IsVisible="{Binding EmailValid, Converter={StaticResource invertBoolConverter}}"/>
+        <Button x:Name="dybutton" BackgroundColor="Red" Clicked="Button_Clicked" Text="Continue" >
+            <Button.BackgroundColor>
+                <OnPlatform x:TypeArguments="Color"
+                        Android ="Violet"
+                        iOS ="Black">
+                </OnPlatform>
+            </Button.BackgroundColor>
+        </Button>
+        <Grid RowDefinitions="auto,auto" ColumnDefinitions="auto,auto,auto" >
+            <Label Grid.Row="0" Grid.Column="0" Text="1" Padding="15"></Label>
+            <Label Grid.Row="0" Grid.Column="1" Text="2" Padding="15"></Label>
+            <Label Grid.Row="0" Grid.Column="2" Text="3" Padding="15"></Label>
+            <Label Grid.Row="1" Grid.Column="0" Text="4" Padding="15"></Label>
+            <Label Grid.Row="1" Grid.Column="1" Text="5" Padding="15"></Label>
+            <Label Grid.Row="1" Grid.Column="2" Text="6" Padding="15"></Label>
+        </Grid>
+
+        <Label Text="Hello there" FontSize="50" TextColor="Red"/>
+        <Button Clicked="Buttoncl_Clicked" x:Name="Buttoncl" Text="Click me"/>
+        <Entry Placeholder="Enter text here"/>
+        <Editor Placeholder="Enter multi line text here" HeightRequest="50"/>
+        <Image x:Name="imgdemo" Source="https://www.logolynx.com/images/logolynx/09/09c1ec42a34a38d3fb8d36f7726b453d.jpeg"/> -->
+    
+</ContentPage>
