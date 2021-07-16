@@ -17,6 +17,8 @@ namespace App3
             BindingContext = myviewmodel;
             myviewmodel.GenderValid = false;
             myviewmodel.NameValid = false;
+            myviewmodel.PriceZero = false;
+            myviewmodel.NameEmpty = false;
             List<String> myList = new List<String>();
             myList.Add("Male");
             myList.Add("Female");
@@ -49,6 +51,14 @@ namespace App3
 
         private void currency_SelectionChanged(object sender, Syncfusion.XForms.ComboBox.SelectionChangedEventArgs e)
         {
+
+        }
+
+        private void Button_Clicked_1(object sender, EventArgs e)
+        {
+            loading.IsVisible = true;
+            loading.PlayAnimation();
+            submitbutton.Text = "please wait...";
 
         }
     }

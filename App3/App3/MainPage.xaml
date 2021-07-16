@@ -3,11 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
-             xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms" xmlns:local="clr-namespace:App3"
+             xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms" xmlns:local="clr-namespace:App3" xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
              x:Class="App3.MainPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <xct:InvertedBoolConverter x:Key="invertBoolConverter" />
+            <Style x:Key="invalid" TargetType="autocomplete:SfAutoComplete">
+                <Setter Property="TextColor" Value="Red"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -43,10 +46,11 @@
 
                 <autocomplete:SfAutoComplete x:Name="nameInput" ShowBorder="False" BackgroundColor="White">
                     <autocomplete:SfAutoComplete.Behaviors>
-                        <xct:TextValidationBehavior MinimumLength="1" RegexPattern="([a-zA-Z]+)\s([a-zA-Z]+)" Flags="ValidateOnFocusing,ValidateOnValueChanging"  IsValid="{Binding NameValid}"></xct:TextValidationBehavior>
+                        <xct:TextValidationBehavior   MinimumLength="1" RegexPattern="([a-zA-Z]+)\s([a-zA-Z]+)" Flags="ValidateOnFocusing,ValidateOnValueChanging"  IsValid="{Binding NameValid}"></xct:TextValidationBehavior>
+                        <xct:TextValidationBehavior RegexPattern="[a-zA-Z]+"  Flags="ValidateOnValueChanging" IsNotValid="{Binding NameEmpty}" ></xct:TextValidationBehavior>
                     </autocomplete:SfAutoComplete.Behaviors>
                 </autocomplete:SfAutoComplete>
-
+                <Label Text="Full name cannot be empty" HorizontalOptions="End" TextColor="Red" IsVisible="{Binding NameEmpty}" ></Label>
                 <StackLayout Orientation="Horizontal">
                     <Label>
                         <Label.FormattedText>
@@ -59,11 +63,14 @@
                     <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal"  BackgroundColor="White">
-                    <combobox:SfComboBox x:Name="currency" SelectionChanged="currency_SelectionChanged" MultiSelectMode="None" ShowClearButton="False" SelectedIndex="2" HeightRequest="40" WidthRequest="100" ShowBorder="False" BackgroundColor="White" />
-                    <autocomplete:SfAutoComplete x:Name="price" WidthRequest="280"   ShowBorder="False" BackgroundColor="White" TextColor="Black">
-
+                    <combobox:SfComboBox x:Name="currency" SelectionChanged="currency_SelectionChanged"  MultiSelectMode="None" ShowClearButton="False" SelectedIndex="2" HeightRequest="40" WidthRequest="100" ShowBorder="False" BackgroundColor="White" />
+                    <autocomplete:SfAutoComplete x:Name="price" WidthRequest="280"   ShowBorder="False" BackgroundColor="White" TextColor="Black" Keyboard="Numeric">
+                        <autocomplete:SfAutoComplete.Behaviors>
+                            <xct:TextValidationBehavior RegexPattern="[0-9]+" Flags="ValidateOnValueChanging" IsNotValid="{Binding PriceZero}"></xct:TextValidationBehavior>
+                        </autocomplete:SfAutoComplete.Behaviors>
                     </autocomplete:SfAutoComplete>
                 </StackLayout>
+                <Label Text="Price cannot be empty" TextColor="Red" HorizontalOptions="End" IsVisible="{Binding PriceZero}"></Label>
                 <StackLayout Orientation="Horizontal">
                     <Label>
                         <Label.FormattedText>
@@ -75,8 +82,10 @@
                     </Label>
                     <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
                 </StackLayout>
-                <autocomplete:SfAutoComplete x:Name="phone"    ShowBorder="False" BackgroundColor="White" TextColor="Black">
-
+                <autocomplete:SfAutoComplete x:Name="phone" ShowBorder="False" BackgroundColor="White">
+                    <autocomplete:SfAutoComplete.Behaviors>
+                        <xct:TextValidationBehavior InvalidStyle="{StaticResource invalid}"  MinimumLength="1" RegexPattern="^[0-9]{10}$" Flags="ValidateOnFocusing,ValidateOnValueChanging"  ></xct:TextValidationBehavior>
+                    </autocomplete:SfAutoComplete.Behaviors>
                 </autocomplete:SfAutoComplete>
                 <StackLayout Orientation="Horizontal">
                     <Label>
@@ -152,8 +161,13 @@
                         </ImageButton>
                     </Grid>
                 </StackLayout>
-                <Button Text="submit" BackgroundColor="red" HeightRequest="100"></Button>
-                <Entry HeightRequest = "200"></Entry>
+                <StackLayout BackgroundColor="#208474">
+                    <Button Text="submit" x:Name="submitbutton" FontSize="Large" Clicked="Button_Clicked_1"  BackgroundColor="#208474" HeightRequest="50" ImageSource="https://assets2.lottiefiles.com/private_files/lf30_9tKljP.json">
+                    </Button>
+                    <lottie:AnimationView x:Name="loading" Scale="6" Animation="load.json" RepeatMode="Infinite" IsVisible="false" AutoPlay="False" WidthRequest="100" HeightRequest="50" />
+                </StackLayout>
+                <Entry HeightRequest = "100"></Entry>
+               
             </StackLayout>
         </StackLayout>
     </ScrollView>

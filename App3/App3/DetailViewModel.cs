@@ -12,6 +12,8 @@ namespace App3
         private bool nameValid = false;
         public string testdata = "testdata";
         private bool genderValid = false;
+        private bool priceZero = false;
+        private bool nameEmpty = false;
         bool _hidePassword = true;
         public string ShowIcon { get; set; }
         public string HideIcon { get; set; }
@@ -48,6 +50,24 @@ namespace App3
             set
             {
                 genderValid = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool NameEmpty
+        {
+            get => nameEmpty;
+            set
+            {
+                nameEmpty = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool PriceZero
+        { 
+            get => priceZero;
+            set
+            {
+                priceZero = value;
                 OnPropertyChanged();
             }
         }
