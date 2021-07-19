@@ -11,6 +11,8 @@ namespace App3
     public partial class MainPage : ContentPage
     {
         public DetailViewModel myviewmodel = new DetailViewModel();
+        public double progress = 0;
+        public Color progresscolor = Color.White;
         public MainPage()
         {
             InitializeComponent();
@@ -19,6 +21,10 @@ namespace App3
             myviewmodel.NameValid = false;
             myviewmodel.PriceZero = false;
             myviewmodel.NameEmpty = false;
+            myviewmodel.EmailNotValid = true;
+            myviewmodel.PhoneValid = false;
+            myviewmodel.IdValid = false;
+
             List<String> myList = new List<String>();
             myList.Add("Male");
             myList.Add("Female");
@@ -28,6 +34,7 @@ namespace App3
             comboBox.ComboBoxSource = myList;
             currency.ComboBoxSource = mycurrency;
             currency.SelectedIndex = 1;
+            
 
         }
 
@@ -60,6 +67,43 @@ namespace App3
             loading.PlayAnimation();
             submitbutton.Text = "please wait...";
 
+        }
+
+        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            myviewmodel.PasswordStrength = (int)DetailViewModel.CheckStrength(e.NewTextValue);
+            progress = myviewmodel.PasswordStrength / 7.0;
+            passwordbar.ProgressTo(progress, 900, Easing.Linear);
+            passwordbar.ProgressColor = myviewmodel.ScoreToColor(myviewmodel.PasswordStrength);
+            PasswordStrengthLabel.Text = myviewmodel.ScoreToMessage(myviewmodel.PasswordStrength);
+        }
+
+        private void price_ValueChanged(object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e)
+        {
+            if (myviewmodel.PriceZero)
+            {
+                pricelabel.IsVisible = true;
+                pricecheck.IsVisible = false;
+            }
+            else
+            {
+                pricelabel.IsVisible = false;
+                pricecheck.IsVisible = true;
+            }
+        }
+
+        private void email_ValueChanged(object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e)
+        {
+            if(myviewmodel.EmailNotValid)
+            {
+                emaillabel.IsVisible = true;
+                emailcheck.IsVisible = false;
+            }
+            else
+            {
+                emaillabel.IsVisible = false;
+                emailcheck.IsVisible = true;
+            }
         }
     }
 }

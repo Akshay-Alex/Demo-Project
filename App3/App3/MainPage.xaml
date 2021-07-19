@@ -60,17 +60,17 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
+                    <Image x:Name="pricecheck" Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="false"></Image>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal"  BackgroundColor="White">
                     <combobox:SfComboBox x:Name="currency" SelectionChanged="currency_SelectionChanged"  MultiSelectMode="None" ShowClearButton="False" SelectedIndex="2" HeightRequest="40" WidthRequest="100" ShowBorder="False" BackgroundColor="White" />
-                    <autocomplete:SfAutoComplete x:Name="price" WidthRequest="280"   ShowBorder="False" BackgroundColor="White" TextColor="Black" Keyboard="Numeric">
+                    <autocomplete:SfAutoComplete x:Name="price" WidthRequest="280" ValueChanged="price_ValueChanged"  ShowBorder="False" BackgroundColor="White" TextColor="Black" Keyboard="Numeric">
                         <autocomplete:SfAutoComplete.Behaviors>
-                            <xct:TextValidationBehavior RegexPattern="[0-9]+" Flags="ValidateOnValueChanging" IsNotValid="{Binding PriceZero}"></xct:TextValidationBehavior>
+                            <xct:TextValidationBehavior RegexPattern="[0-9]+" Flags="ValidateOnValueChanging" IsValid="{Binding PriceZero, Converter={StaticResource invertBoolConverter}}"></xct:TextValidationBehavior>
                         </autocomplete:SfAutoComplete.Behaviors>
                     </autocomplete:SfAutoComplete>
                 </StackLayout>
-                <Label Text="Price cannot be empty" TextColor="Red" HorizontalOptions="End" IsVisible="{Binding PriceZero}"></Label>
+                <Label x:Name="pricelabel" IsVisible="False" Text="Price cannot be empty" TextColor="Red" HorizontalOptions="End" IsEnabled="False" ></Label>
                 <StackLayout Orientation="Horizontal">
                     <Label>
                         <Label.FormattedText>
@@ -80,11 +80,11 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
+                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding PhoneValid}"></Image>
                 </StackLayout>
                 <autocomplete:SfAutoComplete x:Name="phone" ShowBorder="False" BackgroundColor="White">
                     <autocomplete:SfAutoComplete.Behaviors>
-                        <xct:TextValidationBehavior InvalidStyle="{StaticResource invalid}"  MinimumLength="1" RegexPattern="^[0-9]{10}$" Flags="ValidateOnFocusing,ValidateOnValueChanging"  ></xct:TextValidationBehavior>
+                        <xct:TextValidationBehavior InvalidStyle="{StaticResource invalid}"  MinimumLength="1" RegexPattern="^[0-9]{10}$" Flags="ValidateOnFocusing,ValidateOnValueChanging" IsValid="{Binding PhoneValid}"></xct:TextValidationBehavior>
                     </autocomplete:SfAutoComplete.Behaviors>
                 </autocomplete:SfAutoComplete>
                 <StackLayout Orientation="Horizontal">
@@ -96,10 +96,12 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
+                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding IdValid}"></Image>
                 </StackLayout>
                 <autocomplete:SfAutoComplete x:Name="id"    ShowBorder="False" BackgroundColor="White" TextColor="Black">
-
+                    <autocomplete:SfAutoComplete.Behaviors>
+                        <xct:TextValidationBehavior RegexPattern="^\S+$" IsValid="{Binding IdValid}"></xct:TextValidationBehavior>
+                    </autocomplete:SfAutoComplete.Behaviors>
                 </autocomplete:SfAutoComplete>
                 <StackLayout Orientation="Horizontal">
                     <Label>
@@ -110,7 +112,7 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
+                    <Image x:Name="emailcheck" Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="false"></Image>
                 </StackLayout>
                 <Editor  HeightRequest="300" BackgroundColor="White"></Editor>
                 <StackLayout Orientation="Horizontal">
@@ -122,10 +124,14 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
+                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding EmailNotValid, Converter={StaticResource invertBoolConverter}}"></Image>
                 </StackLayout>
-                <autocomplete:SfAutoComplete x:Name="email"    ShowBorder="False" BackgroundColor="White" TextColor="Black">
+                <autocomplete:SfAutoComplete ValueChanged="email_ValueChanged" x:Name="email" ShowBorder="False" BackgroundColor="White">
+                    <autocomplete:SfAutoComplete.Behaviors>
+                        <xct:EmailValidationBehavior InvalidStyle="{StaticResource invalid}" IsNotValid="{Binding EmailNotValid}" Flags="ValidateOnFocusing,ValidateOnValueChanging"  ></xct:EmailValidationBehavior>
+                    </autocomplete:SfAutoComplete.Behaviors>
                 </autocomplete:SfAutoComplete>
+                <Label x:Name="emaillabel" IsVisible="false" Text="Email not valid" TextColor="Red" HorizontalOptions="End" ></Label>
                 <StackLayout Orientation="Horizontal">
                     <Label>
                         <Label.FormattedText>
@@ -135,14 +141,13 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Image Source="https://www.kindpng.com/picc/m/405-4059088_icon-transparent-background-green-check-mark-hd-png.png" WidthRequest="20" IsVisible="{Binding NameValid}"></Image>
                 </StackLayout>
 
 
                 <StackLayout VerticalOptions="Center"
                     >
                     <Grid>
-                        <Entry Placeholder="Password" BackgroundColor="White" TextColor="Black" ClearButtonVisibility="Never"
+                        <Entry Placeholder="Password" TextChanged="Entry_TextChanged" BackgroundColor="White" TextColor="Black" ClearButtonVisibility="Never"
                         IsPassword="{Binding Source={x:Reference ShowPasswordActualTrigger}, Path=HidePassword}"/>
 
                         <ImageButton VerticalOptions="Center"
@@ -161,16 +166,22 @@
                         </ImageButton>
                     </Grid>
                 </StackLayout>
+                <ProgressBar x:Name="passwordbar" HeightRequest="30" ProgressColor="red"  WidthRequest="300" ></ProgressBar>
+                <Label Text="" TextColor="Black" HorizontalOptions="End" x:Name="PasswordStrengthLabel" FontAttributes="Bold" FontSize="Medium"></Label>
                 <StackLayout BackgroundColor="#208474">
                     <Button Text="submit" x:Name="submitbutton" FontSize="Large" Clicked="Button_Clicked_1"  BackgroundColor="#208474" HeightRequest="50" ImageSource="https://assets2.lottiefiles.com/private_files/lf30_9tKljP.json">
                     </Button>
-                    <lottie:AnimationView x:Name="loading" Scale="6" Animation="load.json" RepeatMode="Infinite" IsVisible="false" AutoPlay="False" WidthRequest="100" HeightRequest="50" />
+                    <lottie:AnimationView x:Name="loading" Scale="6" Animation="loadani.json" RepeatMode="Infinite" IsVisible="false" AutoPlay="False" WidthRequest="100" HeightRequest="50" />
                 </StackLayout>
-                <Entry HeightRequest = "100"></Entry>
-               
+
+            </StackLayout>
+            <StackLayout HeightRequest="320">
+
             </StackLayout>
         </StackLayout>
+        
     </ScrollView>
+    
 
     <!--
         <Label Text="Enter Name"/>
